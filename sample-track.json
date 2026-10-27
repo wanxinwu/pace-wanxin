@@ -1,0 +1,10 @@
+[
+  {"north": 0, "east": 0, "seconds": 0, "accuracy": 6},
+  {"north": 0.000035, "east": 0.00001, "seconds": 5, "accuracy": 6},
+  {"north": 0.00007, "east": 0.00002, "seconds": 10, "accuracy": 6},
+  {"north": 0.0012, "east": 0.002, "seconds": 15, "accuracy": 6},
+  {"north": 0.000105, "east": 0.00003, "seconds": 20, "accuracy": 6},
+  {"north": 0.00014, "east": 0.00004, "seconds": 25, "accuracy": 6},
+  {"north": 0.000175, "east": 0.00005, "seconds": 30, "accuracy": 6},
+  {"north": 0.00021, "east": 0.00006, "seconds": 35, "accuracy": 6}
+]
