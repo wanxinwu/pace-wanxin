@@ -16,6 +16,9 @@
     avatar.textContent=user?(user.avatar?'':user.nickname.slice(0,1).toUpperCase()):'我';
     avatar.style.backgroundImage=user?.avatar?`url("${user.avatar}")`:'';
     avatar.classList.toggle('has-account-avatar',!!user?.avatar);
+    const mobileAccount=$('mobileAccountButton'),mobileAvatar=$('mobileAccountAvatar');
+    if(mobileAccount){mobileAccount.textContent=user?'↪':'＋';mobileAccount.setAttribute('aria-label',user?'登出本機帳號':'本機登入');}
+    if(mobileAvatar){mobileAvatar.textContent=user?(user.avatar?'':user.nickname.slice(0,1).toUpperCase()):'我';mobileAvatar.style.backgroundImage=user?.avatar?`url("${user.avatar}")`:'';mobileAvatar.classList.toggle('has-account-avatar',!!user?.avatar);}
     window.dispatchEvent(new CustomEvent('pace:set-runner-avatar',{detail:{dataUrl:user?.avatar||''}}));
     if(user){setStatus(`已以「${user.nickname}」模擬登入；紀錄只保存在此瀏覽器。`);renderSocial();}
   }
@@ -34,10 +37,13 @@
     else{$('authNickname').value='';$('authMessage').textContent='這是本機展示帳號，不需要密碼；資料會保存在目前瀏覽器的 LocalStorage。';$('authDialog').showModal();}
   });
   $('accountAvatar').addEventListener('click',()=>{if(!user){$('authDialog').showModal();return;}$('runnerPhotoInput').click();});
+  $('mobileAccountButton')?.addEventListener('click',()=>$('accountButton').click());
+  $('mobileAccountAvatar')?.addEventListener('click',()=>$('accountAvatar').click());
   window.addEventListener('pace:runner-avatar-updated',event=>{
     if(!user||!event.detail?.dataUrl)return;
     user.avatar=event.detail.dataUrl;db.users[user.id].avatar=user.avatar;persist();
     const avatar=$('accountAvatar');avatar.textContent='';avatar.style.backgroundImage=`url("${user.avatar}")`;avatar.classList.add('has-account-avatar');
+    const mobileAvatar=$('mobileAccountAvatar');if(mobileAvatar){mobileAvatar.textContent='';mobileAvatar.style.backgroundImage=`url("${user.avatar}")`;mobileAvatar.classList.add('has-account-avatar');}
     setStatus(`「${user.nickname}」的帳號頭貼與地圖小人頭像已更新。`);
   });
   $('closeAuth').addEventListener('click',()=>$('authDialog').close());

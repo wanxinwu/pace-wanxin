@@ -43,6 +43,7 @@
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     toggle.textContent = theme === 'dark' ? '☀' : '☾';
+    const mobileToggle = $('mobileThemeToggle'); if (mobileToggle) mobileToggle.textContent = toggle.textContent;
     toggle.setAttribute('aria-pressed', String(theme === 'dark'));
     toggle.setAttribute('aria-label', theme === 'dark' ? '切換日間模式' : '切換夜間模式');
     try { localStorage.setItem(key, theme); } catch {}
@@ -50,4 +51,5 @@
   let saved = 'light'; try { saved = localStorage.getItem(key) || 'light'; } catch {}
   setTheme(saved === 'dark' ? 'dark' : 'light');
   toggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+  $('mobileThemeToggle')?.addEventListener('click', () => toggle.click());
 })();
